@@ -6,8 +6,6 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./components/shared/Footer";
 
 
-
-
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
 });
