@@ -106,8 +106,8 @@ const SignUpPage = () => {
                 </div>
 
                 <div className="mt-6 text-center text-xs text-[#697169]">
-                    অ্যাকাউন্ট আছে?{" "}
-                    <Link href="/" className="font-semibold text-[#00873E] hover:underline">
+                    অ্যাকাউন্ট আছে?
+                    <Link href="/sign-in" className="font-semibold text-[#00873E] hover:underline">
                         সাইন ইন করুন
                     </Link>
                 </div>
