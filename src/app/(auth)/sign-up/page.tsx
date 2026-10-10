@@ -27,7 +27,11 @@ const SignUpPage = () => {
 
         const { data, error } = await authClient.signUp.email({ name, email, password, callbackURL: "/" });
         if (error) {
-            toast.error(error.message || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে!");
+           if (error.code === "USER_ALREADY_EXISTS" || error.message?.toLowerCase().includes("already")) {
+              toast.error("এই ইমেইলে ইতিমধ্যে একটি অ্যাকাউন্ট রয়েছে। দয়া করে লগইন করুন।");
+            } else {
+               toast.error(error.message || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে!");
+          }
             return;
         }
 

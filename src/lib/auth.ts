@@ -6,6 +6,11 @@ const client = new MongoClient(process.env.AUTH_BAZARDHOR as string);
 const db = client.db("bazardhor");
 
 export const auth = betterAuth({
+    baseURL: process.env.BETTER_AUTH_URL || "https://montuchandra143-bazardhorbd.vercel.app",
+    trustedOrigins: [
+        "https://montuchandra143-bazardhorbd.vercel.app",
+        "http://localhost:3000"
+    ],
     emailAndPassword: { 
         enabled: true, 
     }, 
@@ -21,11 +26,11 @@ export const auth = betterAuth({
     },
     
     account: {
-		accountLinking: {
-			enabled: true,
-			trustedProviders: ["google", "github"], 
-		},
-	},
+        accountLinking: {
+            enabled: true,
+            trustedProviders: ["google", "github"], 
+        },
+    },
 
     database: mongodbAdapter(db, {
         client,
