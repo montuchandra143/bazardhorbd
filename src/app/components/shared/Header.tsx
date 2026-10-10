@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./Navbar";
+import TitleMarquee from "./TitleMarquee";
 const Header = () => {
     const date = new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",
@@ -43,14 +44,12 @@ const Header = () => {
                         সাইন আপ
                     </Link>
                 </div>
-     
-
+    
                 </div>
-
-
-
+                  <Navbar/>
             </div>
-            <Navbar/>
+            <TitleMarquee/>
+          
      
         </div>
     );
