@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_Bengali} from "next/font/google";
 import "./globals.css";
 import Header from "./components/shared/Header";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main>
           {children}
         </main>
-       
+         <ToastContainer />
         </body>
     </html>
   );

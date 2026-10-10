@@ -33,12 +33,12 @@ const Header = () => {
                     </div>
                <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-end">
                     <Link
-                        href="/"
+                        href="/sign-in"
                         className=" text-xs sm:text-sm font-medium transition-all px-4 py-2 rounded-xl"
                     >সাইন ইন 
                     </Link>
                     <Link
-                        href="/"
+                        href="/sign-up"
                         className="rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all shrink-0 shadow-sm"
                     >
                         সাইন আপ

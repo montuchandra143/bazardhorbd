@@ -1,8 +1,56 @@
-
+"use client"
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
+
+
 const SignUpPage = () => {
+ const router = useRouter();
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const name = formData.get("name") as string;
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const confirmPassword = formData.get("confirmPassword") as string;
+
+    
+        if (password !== confirmPassword) {
+            toast.error("পাসওয়ার্ড দুটি মিলছে না!");
+            return;
+        }
+
+        const { data, error } = await authClient.signUp.email({ name, email,password,callbackURL: "/" });
+        if (error) {
+            toast.error(error.message || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে!");
+            return;
+        }
+
+        if (data) {
+            toast.success("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
+             router.push("/");
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/"
+        });
+    };
+
+    const handleGithubSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "github",
+            callbackURL: "/"
+        });
+    };
+
     return (
         <div>
 
@@ -17,7 +65,7 @@ const SignUpPage = () => {
             </div>
 
             <div className="w-full max-w-md rounded-2xl border border-[#DDE5DD] bg-white p-6 sm:p-8 shadow-sm">
-                <form className="space-y-4" >
+                <form className="space-y-4" onSubmit={onSubmit}>
                     <div>
                         <label className="block text-xs font-medium text-[#303630] mb-1.5">
                             নাম
@@ -90,7 +138,7 @@ const SignUpPage = () => {
                 <div className="grid grid-cols-2 gap-3">
                     <button
                         type="button"
-                      
+                        onClick={handleGoogleSignIn}
                         className="flex items-center justify-center gap-2 rounded-xl border border-[#DDE5DD] bg-white py-2.5 text-xs font-medium text-[#303630] shadow-sm hover:bg-[#F9FCF9] transition-colors cursor-pointer"
                     >
                         <FcGoogle />
@@ -98,6 +146,7 @@ const SignUpPage = () => {
                     </button>
                     <button
                         type="button"
+                        onClick={handleGithubSignIn}
                         className="flex items-center justify-center gap-2 rounded-xl border border-[#DDE5DD] bg-white py-2.5 text-xs font-medium text-[#303630] shadow-sm hover:bg-[#F9FCF9] transition-colors cursor-pointer"
                     >
                         <FaGithub />
