@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
 export interface ProductCardIp {
@@ -18,11 +19,10 @@ export interface ProductCardIp {
 const ProductCard = ({ product }: { product: ProductCardIp }) => {
     const isUp = product.change.dir === "up";
     const isFlat = product.change.dir === "flat";
-    const isImageUrl =
-        product.image &&
-        (product.image.startsWith("http") || product.image.startsWith("/"));
+    const isImageUrl = product.image &&(product.image.startsWith("http") || product.image.startsWith("/"));
 
     return (
+        <Link href={`/product/${product.id}`} className="block">
         <div className="bg-white w-full rounded-2xl border border-gray-100 shadow-xs hover:shadow-md transition-all duration-300 p-5 flex flex-col justify-between gap-4 group">
             <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-2xl shrink-0 border border-gray-100 group-hover:border-[#00873E]/30 transition-colors overflow-hidden relative">
@@ -59,6 +59,7 @@ const ProductCard = ({ product }: { product: ProductCardIp }) => {
                 </div>
             </div>
         </div>
+        </Link>
     );
 };
 

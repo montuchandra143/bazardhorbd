@@ -1,5 +1,5 @@
 import MarketBanner from "./components/homepage/MarketBanner";
-import ProductCard from "./components/homepage/ProductCard";
+import ProductCard, { ProductCardIp } from "./components/homepage/ProductCard";
 import { AiFillCaretDown } from "react-icons/ai";
 export default async function Home() {
 
@@ -9,6 +9,7 @@ export default async function Home() {
   return (
     <div className=" bg-[#F4F7F4] min-h-screen">
       <MarketBanner/>
+
    <div className="max-w-7xl mx-auto px-4 mt-6 space-y-10">
                 
                 {priceDecreased.length > 0 && (
