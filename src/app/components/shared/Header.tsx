@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "./Navbar";
 import TitleMarquee from "./TitleMarquee";
+import ButtonSigSign from "./ButtonSigSign";
 const Header = () => {
     const date = new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",
@@ -31,19 +31,7 @@ const Header = () => {
                             </p>
                         </div>
                     </div>
-               <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-end">
-                    <Link
-                        href="/sign-in"
-                        className=" text-xs sm:text-sm font-medium transition-all px-4 py-2 rounded-xl"
-                    >সাইন ইন 
-                    </Link>
-                    <Link
-                        href="/sign-up"
-                        className="rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all shrink-0 shadow-sm"
-                    >
-                        সাইন আপ
-                    </Link>
-                </div>
+                <ButtonSigSign/>
     
                 </div>
                   <Navbar/>
