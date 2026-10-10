@@ -25,7 +25,7 @@ const SignUpPage = () => {
             return;
         }
 
-        const { data, error } = await authClient.signUp.email({ name, email,password,callbackURL: "/" });
+        const { data, error } = await authClient.signUp.email({ name, email, password, callbackURL: "/" });
         if (error) {
             toast.error(error.message || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে!");
             return;

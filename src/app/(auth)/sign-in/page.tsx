@@ -1,10 +1,57 @@
+"use client"
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
 
 const SignInPage = () => {
+
+     const router = useRouter();
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries()) as { email: string; password: string };
+
+        const { data, error } = await authClient.signIn.email({
+            email: user.email,
+            password: user.password,
+            callbackURL: "/"
+        });
+
+        if (error) {
+            toast.error(error.message || "পাসওয়ার্ড বা ইমেইল সঠিক নয়!");
+            console.log(".............No Data ....!", error);
+            return;
+        }
+
+        if (data) {
+            toast.success("সফলভাবে সাইন ইন হয়েছে!");
+            console.log(data, "Pushing Data User");
+            router.push("/");
+           
+        }
+    };
     
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/"
+        });
+    };
+
+    const handleGithubSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "github",
+            callbackURL: "/"
+        });
+    };
+
+
     return (
          <div className="min-h-screen bg-[#F4F7F4] flex flex-col items-center justify-center px-4 py-12">
             <div className="text-center mb-6">
@@ -17,7 +64,7 @@ const SignInPage = () => {
             </div>
 
             <div className="w-full max-w-md rounded-2xl border border-[#DDE5DD] bg-white p-6 sm:p-8 shadow-sm">
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={onSubmit}>
                     <div>
                         <label className="block text-xs font-medium text-[#303630] mb-1.5">
                             ইমেইল
@@ -64,6 +111,7 @@ const SignInPage = () => {
                 <div className="grid grid-cols-2 gap-3">
                     <button
                         type="button"
+                        onClick={handleGoogleSignIn}
                         className="flex items-center justify-center gap-2 rounded-xl border border-[#DDE5DD] bg-white py-2.5 text-xs font-medium text-[#303630] shadow-sm hover:bg-[#F9FCF9] transition-colors cursor-pointer"
                     >
                         <FcGoogle />
@@ -71,6 +119,7 @@ const SignInPage = () => {
                     </button>
                     <button
                         type="button"
+                        onClick={handleGithubSignIn}
                         className="flex items-center justify-center gap-2 rounded-xl border border-[#DDE5DD] bg-white py-2.5 text-xs font-medium text-[#303630] shadow-sm hover:bg-[#F9FCF9] transition-colors cursor-pointer"
                     >
                         <FaGithub />
@@ -87,7 +136,7 @@ const SignInPage = () => {
             </div>
 
             <div className="mt-6 text-center text-xs text-[#697169]">
-                <Link href="/" className="hover:underline">
+                <Link href="/" className="hover:underline flex items-center justify-center gap-1.5">
                     <IoArrowBack /> হোম পেজে ফিরে যান
                 </Link>
             </div>
