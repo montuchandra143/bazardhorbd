@@ -6,9 +6,9 @@ interface NavItem {
     nameBn: string;
     icon: string;
 }
-
+///https://api.abcz.workers.dev/api/bazardor/categories
 const Navbar = async () => {
-    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/categories");
+    const res = await fetch("https://openapi.programming-hero.com/api/bazardor/categories");
     const data = await res.json();
     const categories: NavItem[] = data;
 

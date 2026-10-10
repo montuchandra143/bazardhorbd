@@ -58,9 +58,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
-
+///https://api.abcz.workers.dev/api/bazardor/products
     useEffect(() => {
-        fetch("https://api.abcz.workers.dev/api/bazardor/products")
+        fetch("https://openapi.programming-hero.com/api/bazardor/products")
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data);

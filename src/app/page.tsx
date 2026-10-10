@@ -2,8 +2,8 @@ import MarketBanner from "./components/homepage/MarketBanner";
 import ProductCard, { ProductCardIp } from "./components/homepage/ProductCard";
 import { AiFillCaretDown } from "react-icons/ai";
 export default async function Home() {
-
-    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
+///https://api.abcz.workers.dev/api/bazardor/products
+    const res = await fetch("https://openapi.programming-hero.com/api/bazardor/products");
     const products: ProductCardIp[] = await res.json();
     const priceDecreased = products.filter((item) => item.change.dir === "down");
   return (

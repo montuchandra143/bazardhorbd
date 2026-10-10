@@ -11,9 +11,9 @@ interface InterfaceProduct {
         pct: number;
     };
 }
-
+///https://api.abcz.workers.dev/api/bazardor/products
 const TitleMarquee = async () => {
-    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
+    const res = await fetch("https://openapi.programming-hero.com/api/bazardor/products");
     const data = await res.json();
     const markets: InterfaceProduct[] = data;
 

@@ -38,9 +38,9 @@ interface Product {
     };
     markets: Market[];
 }
-
+///https://api.abcz.workers.dev/api/bazardor/products
 async function getProduct(id: string): Promise<Product | null> {
-    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
+    const res = await fetch("https://openapi.programming-hero.com/api/bazardor/products");
     const data = await res.json();
     const all: Product[] = data;
 
