@@ -41,19 +41,55 @@ const SignUpPage = () => {
         }
     };
 
-    const handleGoogleSignIn = async () => {
+ const handleGoogleSignIn = async () => {
+    try {
         await authClient.signIn.social({
             provider: "google",
-            callbackURL: "/"
+            callbackURL: "/",
+            fetchOptions: {
+                onRequest: () => {
+                    toast.loading("Google-এর সাথে যুক্ত হওয়া হচ্ছে...");
+                },
+                onSuccess: () => {
+                    toast.dismiss();
+                    toast.success("সফলভাবে Google দিয়ে সাইন ইন হয়েছে!");
+                },
+                onError: (ctx) => {
+                    toast.dismiss();
+                    toast.error(ctx.error.message || "Google সাইন ইন করতে সমস্যা হয়েছে!");
+                }
+            }
         });
-    };
+    } catch (error) {
+        toast.dismiss();
+        toast.error("কিছু একটা সমস্যা হয়েছে, আবার চেষ্টা করুন।");
+    }
+};
 
-    const handleGithubSignIn = async () => {
+ const handleGithubSignIn = async () => {
+    try {
         await authClient.signIn.social({
             provider: "github",
-            callbackURL: "/"
+            callbackURL: "/",
+            fetchOptions: {
+                onRequest: () => {
+                    toast.loading("GitHub-এর সাথে যুক্ত হওয়া হচ্ছে...");
+                },
+                onSuccess: () => {
+                    toast.dismiss();
+                    toast.success("সফলভাবে GitHub দিয়ে সাইন ইন হয়েছে!");
+                },
+                onError: (ctx) => {
+                    toast.dismiss();
+                    toast.error(ctx.error.message || "GitHub সাইন ইন করতে সমস্যা হয়েছে!");
+                }
+            }
         });
-    };
+    } catch (error) {
+        toast.dismiss();
+        toast.error("কিছু একটা সমস্যা হয়েছে, আবার চেষ্টা করুন।");
+    }
+};
 
     return (
         <div>

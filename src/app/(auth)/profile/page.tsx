@@ -9,28 +9,31 @@ const ProfilePage = () => {
     const router = useRouter();
     const { data: session } = authClient.useSession();
     const user = session?.user;
-
     const [name, setName] = useState<string>("");
-
-    // Seshon theke user data ashle name state-e set kora
     useEffect(() => {
         if (user?.name) {
             setName(user.name);
         }
     }, [user]);
 
-    // Sign out handler
-    const handleSignOut = async () => {
+const handleSignOut = async () => {
+    try {
         await authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
-                    toast.success("Safolvabe sign out hoyeche!");
+                    toast.success("আপনার সাইন আউট সফলভাবে হয়েছে!");
                     router.push("/sign-in");
                     router.refresh();
                 },
+                onError: (ctx) => {
+                    toast.error(ctx.error.message || "সাইন আউট করতে সমস্যা হয়েছে!");
+                }
             },
         });
-    };
+    } catch (error) {
+        toast.error("কিছু একটা সমস্যা হয়েছে, আবার চেষ্টা করুন।");
+    }
+};
 
     // Profile update handler
     const handleUpdate = async (e: React.FormEvent) => {
@@ -46,7 +49,7 @@ const ProfilePage = () => {
             }
 
             if (data) {
-                toast.success("Profile safolvabe update hoyeche!");
+               toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
                 router.refresh();
             }
         } catch (err) {
